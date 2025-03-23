@@ -5,7 +5,7 @@ import java.util.*;
 import java.util.concurrent.atomic.*;
 
 /**
- * Кастомный пул потоков с балансировкой задач по наименьшей загруженности.
+ * Кастомизированный пул потоков с балансировкой задач по наименьшей загруженности.
  */
 public class CustomThreadPoolExecutor implements CustomExecutor {
     private final int corePoolSize;
@@ -97,11 +97,7 @@ public class CustomThreadPoolExecutor implements CustomExecutor {
             task.run(); // Выполнение задачи в текущем потоке
         } else {
             try {
-                Thread.sleep(8000); // Ожидание перед повторной попыткой
-//              BlockingQueue<Runnable> queue = getLeastLoadedQueue();
-//                if (queue == null || !queue.offer(task)) {
-//                    System.out.println("[Rejected] Task " + task.toString() + " finally rejected after retry.");
-//                }
+                Thread.sleep(5); // Ожидание перед повторной попыткой
             } catch (InterruptedException ignored) {}
         }
     }
@@ -179,7 +175,6 @@ public class CustomThreadPoolExecutor implements CustomExecutor {
             System.out.println("[Worker] " + thread.getName() + " terminated.");
         }
 
-        // Метод для остановки воркера
         public void stopWorker() {
             running = false;
             if (thread != null) {

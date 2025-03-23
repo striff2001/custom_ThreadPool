@@ -6,12 +6,12 @@ public class Main {
     public static void main(String[] args) {
         CustomThreadPoolExecutor pool = new CustomThreadPoolExecutor(2, 4, 5, TimeUnit.SECONDS, 5, 1);
 
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 2500; i++) {
             final int taskId = i;
             pool.execute(() -> {
                 System.out.println("[Task] Task " + taskId + " is starting");
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(100);
                 } catch (InterruptedException ignored) {}
                 System.out.println("[Task] Task " + taskId + " is completed");
             });

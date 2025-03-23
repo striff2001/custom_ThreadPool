@@ -15,8 +15,8 @@ public class PerformanceTest {
     public static void main(String[] args) {
         List<TestResult> results = new ArrayList<>();
 
-        results.add(testCustomExecutor(new CustomThreadPoolExecutor(4, 8, 5, TimeUnit.SECONDS, 100, 2), "CustomThreadPool"));
-        results.add(testExecutor(Executors.newFixedThreadPool(8), "FixedThreadPool"));
+        results.add(testCustomExecutor(new CustomThreadPoolExecutor(4, 16, 5, TimeUnit.SECONDS, 100, 2), "CustomThreadPool"));
+        results.add(testExecutor(Executors.newFixedThreadPool(16), "FixedThreadPool"));
         results.add(testExecutor(Executors.newCachedThreadPool(), "CachedThreadPool"));
         results.add(testExecutor(Executors.newSingleThreadExecutor(), "SingleThreadExecutor"));
 
@@ -26,6 +26,7 @@ public class PerformanceTest {
     private static TestResult testExecutor(ExecutorService executor, String name) {
         long startTime = System.currentTimeMillis();
         int tasksCompleted = 0;
+        int createdThreads = 0;
 
         for (int i = 0; i < TASK_COUNT; i++) {
             final int taskId = i;
